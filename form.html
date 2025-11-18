@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<a href="criteria.html" target="_blank">عرض المعايير والاشتراطات</a>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>نموذج تقديم عروض الشركات</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+    body { font-family: Tahoma, sans-serif; background:#f7f7f7; padding:20px; }
+    .container { max-width:700px; margin:auto; background:#fff; padding:25px; border-radius:10px; box-shadow:0 0 10px #ccc; }
+    h2 { text-align:center; }
+    label { font-weight:bold; margin-top:10px; display:block; }
+    input, textarea, select {
+        width:100%; padding:10px; margin-top:5px; border:1px solid #ccc;
+        border-radius:5px; font-size:15px;
+    }
+    button {
+        margin-top:20px; width:100%; background:#007bff; color:white;
+        padding:12px; border:none; border-radius:5px; font-size:16px;
+        cursor:pointer;
+    }
+    button:hover { background:#0056b3; }
+    .success {
+        background:#d4ffd4; padding:15px; border-radius:5px; margin-top:15px;
+        text-align:center; display:none; color:#0a7a0a; font-weight:bold;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h2>نموذج تقديم عروض الشركات</h2>
+
+    <form id="vendorForm" method="POST" action="https://script.google.com/macros/s/AKfycbxtKI0Pq_NlP_i-F5M1yX5u6jh4dUPKvP88T8paTnMHy8W1IhmMZ1taCzOLywp3Ilz6/exec
+">
+
+        <label>اسم الشركة</label>
+        <input type="text" name="company_name" required>
+
+        <label>الرقم التجاري</label>
+        <input type="text" name="cr_number" required>
+
+        <label>العنوان</label>
+        <input type="text" name="address" required>
+
+        <label>رقم الهاتف</label>
+        <input type="text" name="phone" required>
+
+        <label>البريد الإلكتروني</label>
+        <input type="email" name="email" required>
+
+        <label>نوع الخدمة</label>
+        <select name="service_type" required>
+            <option value="">اختر خدمة</option>
+            <option value="إعاشة">الإعاشة</option>
+            <option value="نقل">النقل</option>
+            <option value="سكن">السكن</option>
+            <option value="تشغيل">التشغيل</option>
+        </select>
+
+        <label>وصف العرض</label>
+        <textarea name="description" rows="4" required></textarea>
+
+        <label>المدة الزمنية للتنفيذ</label>
+        <input type="text" name="duration" required>
+
+        <label>الضمانات المقدمة</label>
+        <textarea name="guarantees" rows="3"></textarea>
+
+        <button type="submit">إرسال الطلب</button>
+
+        <div class="success" id="successMessage">تم إرسال طلبك بنجاح ✔</div>
+
+    </form>
+</div>
+
+<script>
+document.getElementById("vendorForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    var form = e.target;
+    var data = new FormData(form);
+
+    fetch(form.action, { method:"POST", body:data })
+    .then(res => res.text())
+    .then(() => {
+        document.getElementById("successMessage").style.display = "block";
+        form.reset();
+    })
+    .catch(err => alert("حدث خطأ، حاول مرة أخرى"));
+});
+</script>
+
+</body>
+</html>
