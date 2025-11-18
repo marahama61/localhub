@@ -112,7 +112,8 @@ async function submitForm() {
     formData.append("pdfFile", file);
 
     try {
-        let response = await fetch("YOUR_WEB_APP_URL", {
+        let response = await fetch("https://script.google.com/macros/s/AKfycbxtKI0Pq_NlP_i-F5M1yX5u6jh4dUPKvP88T8paTnMHy8W1IhmMZ1taCzOLywp3Ilz6/exec
+", {
             method: "POST",
             body: formData
         });
