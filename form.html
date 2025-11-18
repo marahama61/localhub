@@ -31,8 +31,7 @@
 <div class="container">
     <h2>نموذج تقديم عروض الشركات</h2>
 
-    <form id="vendorForm" method="POST" action="https://script.google.com/macros/s/AKfycbxtKI0Pq_NlP_i-F5M1yX5u6jh4dUPKvP88T8paTnMHy8W1IhmMZ1taCzOLywp3Ilz6/exec
-">
+    <form id="vendorForm" method="POST" action="https://script.google.com/macros/s/AKfycbxtfUGeFbN1ogUis6kh5uTxHE2CLPfP7QKiwEr1v6LGlOExy_c-5vRE3bQLNbC8U782/exec">
 
         <label>اسم الشركة</label>
         <input type="text" name="company_name" required>
@@ -110,7 +109,7 @@ async function submitForm() {
     formData.append("pdfFile", file);
 
     try {
-        let response = await fetch("https://script.google.com/macros/s/AKfycbxtKI0Pq_NlP_i-F5M1yX5u6jh4dUPKvP88T8paTnMHy8W1IhmMZ1taCzOLywp3Ilz6/exec", {
+        let response = await fetch("https://script.google.com/macros/s/AKfycbxtfUGeFbN1ogUis6kh5uTxHE2CLPfP7QKiwEr1v6LGlOExy_c-5vRE3bQLNbC8U782/exec", {
             method: "POST",
             body: formData
         });
