@@ -94,32 +94,32 @@ document.getElementById("vendorForm").addEventListener("submit", function(e) {
     .catch(err => alert("حدث خطأ، حاول مرة أخرى"));
 });
 </script>
-<script>
     
+<script>
 async function submitForm() {
-    const pdfInput = document.getElementById("pdfFile");
-    const file = pdfInput.files[0];
 
+    const form = document.getElementById("vendorForm");
+    const formData = new FormData(form);
+
+    const file = document.getElementById("pdfFile").files[0];
     if (!file) {
-        alert("يرجى اختيار ملف PDF قبل الإرسال");
+        alert("يرجى اختيار ملف PDF");
         return;
     }
 
-    // تجهيز باقي حقول النموذج
-    const formData = new FormData(document.querySelector("form"));
-
-    // إضافة الملف
     formData.append("pdfFile", file);
 
     try {
-        let response = await fetch("https://script.google.com/macros/s/AKfycbxtKI0Pq_NlP_i-F5M1yX5u6jh4dUPKvP88T8paTnMHy8W1IhmMZ1taCzOLywp3Ilz6/exec
-", {
+        let response = await fetch("https://script.google.com/macros/s/AKfycbxtKI0Pq_NlP_i-F5M1yX5u6jh4dUPKvP88T8paTnMHy8W1IhmMZ1taCzOLywp3Ilz6/exec", {
             method: "POST",
             body: formData
         });
 
         let result = await response.text();
-        alert("تم إرسال الطلب بنجاح");
+
+        document.getElementById("successMessage").style.display = "block";
+        form.reset();
+
     } catch (error) {
         alert("حدث خطأ أثناء الإرسال");
         console.error(error);
