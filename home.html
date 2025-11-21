@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>رفع PDF إلى Google Drive</title>
+<style>
+body { font-family: Arial; padding:20px; direction:rtl; }
+input, button { padding:10px; margin-top:10px; }
+</style>
+</head>
+<body>
+
+<h2>رفع ملف PDF إلى Google Drive وتسجيله في Google Sheet</h2>
+
+<input type="file" id="pdfFile" accept="application/pdf">
+<br>
+<button onclick="uploadPDF()">رفع الملف</button>
+
+<p id="status"></p>
+
+<script>
+const WEB_APP_URL = "PUT_WEB_APP_URL_HERE";
+
+async function uploadPDF() {
+
+    let fileInput = document.getElementById("pdfFile");
+    if (!fileInput.files.length) {
+        alert("الرجاء اختيار ملف PDF");
+        return;
+    }
+
+    let file = fileInput.files[0];
+    let reader = new FileReader();
+
+    reader.onload = async function() {
+        let base64File = reader.result;
+
+        let payload = {
+            name: file.name,
+            file: base64File
+        };
+
+        document.getElementById("status").innerText = "جاري الرفع...";
+
+        let response = await fetch(WEB_APP_URL, {
+            method: "POST",
+            body: JSON.stringify(payload),
+            headers: { "Content-Type": "application/json" }
+        });
+
+        let result = await response.json();
+
+        if (result.status === "success") {
+            document.getElementById("status").innerHTML =
+                "تم الرفع بنجاح. رابط الملف: <a href='" + result.url + "' target='_blank'>اضغط هنا</a>";
+        } else {
+            document.getElementById("status").innerText = "حدث خطأ: " + result.message;
+        }
+    };
+
+    reader.readAsDataURL(file);
+}
+</script>
+
+</body>
+</html>
